@@ -15,21 +15,22 @@ class GalleryModel extends ModelPortalContent {
 	public $main_id = 'image_id';
 
 	//Default Coloms for read
-	public $default_read_coloms = 'image_id, image_name, image_price, image_price_disc, image_url';
+	public $default_read_coloms = 'image_id, image_name, image_code, image_url';
 
 	//allowed colom in CRUD filter
-	public $coloumlist = 'image_id, image_name, image_desc, image_price, image_price_disc, image_active, image_url, date_start, date_end, image_tag';
+	public $coloumlist = 'image_id, image_name, image_desc, image_code, image_url, image_active,  image_tag';
 
 	public $image_id;
 	public $image_name;
 	public $image_desc;
-	public $image_meta_desc;
-	public $image_price;
-	public $image_price_disc;
-	public $image_active;
+	public $image_code;
 	public $image_url;
-	public $image_meta_title;
-	public $image_tag;
+	public $image_active;
+//	public $image_meta_desc;
+//	public $image_price;
+//	public $image_price_disc;
+//	public $image_meta_title;
+//	public $image_tag;
 
 	public function overwriteForm ($return, $returnfull)
 	{
@@ -37,13 +38,18 @@ class GalleryModel extends ModelPortalContent {
 
 		$return['image_active'] =
 			new \Leap\View\InputSelect($this->arrayYesNO, "image_active", "image_active", $this->image_active);
-		$return['image_price'] = new \Leap\View\InputText("number", "image_price", "image_price", $this->image_price);
-		$return['image_price_disc'] =
-			new \Leap\View\InputText("number", "image_price_disc", "image_price_disc", $this->image_price_disc);
+//		$return['image_price'] = new \Leap\View\InputText("number", "image_price", "image_price", $this->image_price);
+//		$return['image_price_disc'] =
+//			new \Leap\View\InputText("number", "image_price_disc", "image_price_disc", $this->image_price_disc);
+		$return['image_code'] = new \Leap\View\InputText("text", "image_code", "image_code", $this->image_code);
 		$return['image_url'] = new Leap\View\InputGallery("image_url", "image_url", $this->image_url);
 		$return['image_desc'] = new \Leap\View\InputTextRTE("image_desc", "image_desc", $this->image_desc);
-		$return['image_meta_desc'] =
-			new \Leap\View\InputTextArea("image_meta_desc", "image_meta_desc", $this->image_meta_desc);
+//		unset($return['date_start']);
+//		unset($return['date_end']);
+//		unset($return['image_meta_desc']);
+//		unset($return['image_meta_title']);
+//		$return['image_meta_desc'] =
+//			new \Leap\View\InputTextArea("image_meta_desc", "image_meta_desc", $this->image_meta_desc);
 
 		return $return;
 	}
@@ -58,7 +64,8 @@ class GalleryModel extends ModelPortalContent {
 				$obj->image_active = $this->arrayYesNO[$obj->image_active];
 			}
 			if (isset($obj->image_url)) {
-				$obj->image_url = \Leap\View\InputFoto::getAndMakeFoto(''.getMainPic($obj->image_url), "image_" . $obj->image_id);
+				$obj->image_url =
+					\Leap\View\InputFoto::getAndMakeFoto('' . getMainPic($obj->image_url), "image_" . $obj->image_id);
 			}
 		}
 

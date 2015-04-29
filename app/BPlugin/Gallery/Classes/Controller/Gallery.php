@@ -120,7 +120,7 @@ class Gallery extends WebService {
 
 		$order = $_GET["order"];
 		if (!$order) {
-			$order = ' ORDER BY image_id DESC ';
+			$order = ' ORDER BY image_id ';
 		} else {
 			$order = $arrSort[$order];
 		}

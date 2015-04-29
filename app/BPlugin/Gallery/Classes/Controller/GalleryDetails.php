@@ -13,57 +13,66 @@ class GalleryDetails {
 		?>
 		<div class="container">
 		<div class="content inside-page product-details">
-			<? $image = new GalleryModel();
-			$image->getByID($_GET["id"]);
+		<? $image = new GalleryModel();
+		$image->getByID($_GET["id"]);
 
-			$inputFile = new InputFileModel();
+		$inputFile = new InputFileModel();
 
-			global $template;
-			$template->title = $image->image_meta_title;
-			$template->metades = $image->image_meta_desc;
-			$template->metakey = $image->image_meta_keyword;
-			?>
-			<style>
-				.foto100 {
-					float    : left;
-					width    : 100px;
-					height   : 100px;
-					overflow : hidden;
-				}
+		global $template;
+		$template->title = $image->image_meta_title;
+		$template->metades = $image->image_meta_desc;
+		$template->metakey = $image->image_meta_keyword;
+		?>
+		<style>
+			.foto100 {
+				float    : left;
+				width    : 100px;
+				height   : 100px;
+				overflow : hidden;
+			}
 
-				.foto100 img {
-					width   : 100px;
-					opacity : 0.5;
-				}
+			.foto100 img {
+				width   : 100px;
+				opacity : 0.5;
+			}
 
-				.foto100 img.selector_active {
-					border  : 2px dotted #60ad4f;
-					opacity : 1;
-				}
-			</style>
-			<div class="breadcrumb"><a href="<?= _SPPATH; ?>">Home</a> /
-				<span><?= $image->image_name ?></span>
-			</div>
-			<div class="row">
-				<div class="col-sm-5">
-					<div id="ProductCarousel"
-					     class="carousel slide"
-					     data-ride="carousel">
-						<!-- bisa di for loop untuk carousel -->
-						<div class="carousel-inner">
-							<?
-							$item = getMainPic($image->image_url);
-							?>
-							<img src="<?= $inputFile->upload_url . $item ?>"
-							     class="img-responsive"
-							     alt="product"
-							     id="img_main">
-						</div>
+			.foto100 img.selector_active {
+				border  : 2px dotted #60ad4f;
+				opacity : 1;
+			}
+		</style>
+		<div class="breadcrumb"><a href="<?= _SPPATH; ?>">Home</a> /
+			<span><?= $image->image_name ?></span>
+		</div>
+		<div class="row">
+			<div class="col-sm-5">
+				<div id="ProductCarousel"
+				     class="carousel slide"
+				     data-ride="carousel">
+					<!-- bisa di for loop untuk carousel -->
+					<div class="carousel-inner">
+						<?
+						$item = getMainPic($image->image_url);
+						?>
+						<img src="<?= $inputFile->upload_url . $item ?>"
+						     class="img-responsive"
+						     alt="product"
+						     id="img_main">
 					</div>
 				</div>
-				<div class="col-sm-6 col-sm-xroffset-1 information">
-					<h1><?= $image->image_name ?> </h1>
-					<h4><?= $image->image_desc ?></h4>
+			</div>
+			<div class="col-sm-6 col-sm-xroffset-1 information">
+				<h1><?= $image->image_name ?> </h1>
+
+				<h3><?= $image->image_desc ?></h3>
+
+				<? if (Efiwebsetting::showPrice()){ ?>
+				<div class="price"><span><?= rupiah($image->image_price) ?></span>
+					<b style="margin-left: 5px;"><?= rupiah($image->image_price_disc) ?></b></div>
+				<div class="clearfix">
+					<? } ?>
+
+					<h4><b>Item Code : </b><?= $image->image_code ?></h4>
 
 					<div class="clearfix"
 					     style="margin-top: 20px;">
@@ -210,8 +219,12 @@ class GalleryDetails {
 								   style="display: block; height: 100%; width: 100%; text-decoration: none;">
 									<div class="detail">
 										<h4>
-											<?= $obj->image_name ?>
+											<?= $obj->image_name; ?>
 										</h4>
+										<span style="font-size: larger"><?= ' '.$obj->image_desc;?></span>
+
+
+										<div class="btn btn-default view animated fadeInLeft">View Details</div>
 									</div>
 								</a>
 							</div>

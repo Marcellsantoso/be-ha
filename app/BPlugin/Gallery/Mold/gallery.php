@@ -58,6 +58,14 @@
 			}?>
 		</h2>
 
+		<? if (Efiwebsetting::showPO()) { ?>
+			<h4><?= Efiwebsetting::showPO(); ?></h4><? } ?>
+		<? if (Efiwebsetting::showPO()) { ?>
+			<span style="font-size: large"><?= Efiwebsetting::showDisc(); ?></span>
+		<? } ?>
+		<br>
+		<br>
+
 		<div class="row">
 
 			<?
@@ -100,6 +108,11 @@
 							<img src="<?= $inputFile->upload_url . $image_url; ?>"
 							     class="img-responsive"
 							     alt="product">
+							<? if (Efiwebsetting::showPrice()) { ?>
+								<div class="price special"><?=
+									rupiah(($img->image_price - $img->image_price_disc) * -1) ?></div>
+							<? } ?>
+
 						</a>
 						<script>
 							function click() {
@@ -112,7 +125,15 @@
 							   style="display: block; height: 100%; width: 100%; text-decoration: none;">
 
 								<div class="detail">
-									<h4><?= $img->image_name; ?></h4>
+									<h4><?= $img->image_name; ?> <?= $img->image_desc; ?></h4>
+
+									<? if (Efiwebsetting::showPrice()) { ?>
+										<p><?= Lang::t('Harga asli : '); ?>
+											<del><?= rupiah($img->image_price); ?></del>
+											<br />
+											<?= Lang::t('Harga sekarang : '); ?><?= rupiah($img->image_price_disc); ?>
+										</p>
+									<? } ?>
 									<div class="btn btn-default view animated fadeInLeft"><?= Lang::t('View Details'); ?></div>
 								</div>
 							</a>
