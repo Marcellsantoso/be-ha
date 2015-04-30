@@ -1234,3 +1234,9 @@ div.selector option {
 	width : 100px;
 }
 
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color : #60ad4f !important;
+}
+
+
+
